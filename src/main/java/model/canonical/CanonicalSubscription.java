@@ -3,8 +3,9 @@ package model;
 import java.time.LocalDateTime;
 
 import model.Party;
+import model.canonical.interface.CanonicalEvent;
 
-public class CanonicalSubscription {
+public class CanonicalSubscription implements CanonicalEvent{
     private String internalId;
     private String externalRef;
     private String provider;

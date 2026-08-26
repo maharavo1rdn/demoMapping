@@ -6,8 +6,9 @@ import java.util.Map;
 
 import model.Money;
 import model.Party;
+import model.canonical.interface.CanonicalEvent;
 
-public class CanonicalTransaction {
+public class CanonicalTransaction implements CanonicalEvent{
     private String internalId;
     private String externalRef;
     private String provider;
