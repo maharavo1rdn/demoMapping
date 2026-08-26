@@ -1,0 +1,10 @@
+provider: orangemoney
+eventType: SUBSCRIPTION
+
+detection:
+  jsonPath: "$.subscription_id"
+
+fields:
+  externalRef: "$.subscription_id"
+  senderMsisdn: "$.customer_msisdn"
+  recipientAccount: "$.bank_account_number"

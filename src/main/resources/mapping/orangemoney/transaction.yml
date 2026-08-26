@@ -1,0 +1,12 @@
+provider: orangemoney
+eventType: TRANSACTION
+
+detection:
+  jsonPath: "$.transaction_id"
+
+fields:
+  externalRef: "$.transaction_id"
+  amount: "$.amount"
+  currency: "$.currency"
+  senderMsisdn: "$.sender_phone"
+  recipientAccount: "$.receiver_iban"
