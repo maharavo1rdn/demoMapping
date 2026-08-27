@@ -1,0 +1,7 @@
+type: "subscription"
+fields:
+  externalRef: "$.sub_id"
+  planId: "$.plan_code"
+  customerMsisdn: "$.subscriber"
+  status: "$.sub_status"
+  nextBillingDate: "$.next_billing"
