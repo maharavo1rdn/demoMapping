@@ -33,6 +33,11 @@
             <artifactId>jackson-dataformat-yaml</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+
         <!-- Extraction de champs dans le JSON brut via JSONPath ($.transaction_id, ...) -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
