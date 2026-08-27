@@ -1,0 +1,7 @@
+type: "transaction"
+fields:
+  externalRef: "$.txnid"
+  amount: "$.amount"
+  currency: "$.currency"
+  customerMsisdn: "$.msisdn"
+  status: "$.status"
