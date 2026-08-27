@@ -1,6 +1,6 @@
 package controller;
 
-import dispatcher.WebhookEventDispatcher;
+import service.OrangeMoneyProcessingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,24 +13,22 @@ import org.springframework.web.bind.annotation.RestController;
 // appellerait n'importe quelle API Spring.
 //
 // Ce controller ne contient AUCUNE logique metier : il recoit juste la
-// requete et la transmet telle quelle au dispatcher. C'est le dispatcher
-// (et tout ce qu'il y a derriere : mapping, idempotence, CBS...) qui fait
-// le vrai travail. Un controller fin, qui delegue, est la bonne pratique.
+// requete et la transmet telle quelle au service de traitement Orange Money.
 @RestController
 @RequestMapping("/api/orangemoney")
 public class OrangeMoneyController {
 
-    private final WebhookEventDispatcher dispatcher;
+    private final OrangeMoneyProcessingService processingService;
 
-    public OrangeMoneyController(WebhookEventDispatcher dispatcher) {
-        this.dispatcher = dispatcher;
+    public OrangeMoneyController(OrangeMoneyProcessingService processingService) {
+        this.processingService = processingService;
     }
 
     // Orange Money appelle : POST /api/orangemoney/notifications
     // avec le JSON brut (transaction ou souscription) dans le corps.
     @PostMapping("/notifications")
     public ResponseEntity<String> receiveNotification(@RequestBody String rawJsonPayload) {
-        dispatcher.dispatch(rawJsonPayload);
+        processingService.processNotification(rawJsonPayload);
         return ResponseEntity.ok("Notification recue et traitee.");
     }
 }

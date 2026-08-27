@@ -21,8 +21,15 @@ public class MappingConfigRegistry {
     private final List<MappingDefinition> definitions = new ArrayList<>();
     private final ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
 
+    public MappingConfigRegistry() {
+        loadAllYamlConfigs();
+    }
+
     @PostConstruct
     public void loadAllYamlConfigs() {
+        if (!definitions.isEmpty()) {
+            return;
+        }
         try {
             PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
             // BUG CORRIGE : le dossier reel est "resources/mapping/orangemoney/*.yml"

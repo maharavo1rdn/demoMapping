@@ -6,7 +6,6 @@ import model.Money;
 import repository.BankCodeRepository;
 import service.FeeEngine;
 import service.IdempotencyService;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,8 +26,6 @@ public class TransactionProcessingService {
         this.cbsAdapter = cbsAdapter;
     }
 
-    // Spring route AUTOMATIQUEMENT ici si l'evenement publie est une CanonicalTransaction
-    @EventListener
     public void process(CanonicalTransaction transaction) {
         idempotencyService.verifyAndLock(transaction.getExternalRef());
 
