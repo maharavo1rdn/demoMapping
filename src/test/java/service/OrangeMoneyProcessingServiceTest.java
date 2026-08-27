@@ -12,6 +12,8 @@ import service.transaction.TransactionProcessingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrangeMoneyProcessingServiceTest {
@@ -22,7 +24,7 @@ class OrangeMoneyProcessingServiceTest {
     void setUp() {
         MappingConfigRegistry configRegistry = new MappingConfigRegistry();
         MappingStrategyRegistry strategyRegistry = new MappingStrategyRegistry(
-                java.util.List.of(new TransactionMappingStrategy(), new SubscriptionMappingStrategy())
+                List.of(new TransactionMappingStrategy(), new SubscriptionMappingStrategy())
         );
         OrangeMoneyInboundAdapter adapter = new OrangeMoneyInboundAdapter(configRegistry, strategyRegistry);
         RawPayloadRepository rawPayloadRepository = new RawPayloadRepository();
