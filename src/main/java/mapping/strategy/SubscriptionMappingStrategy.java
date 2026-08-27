@@ -1,7 +1,7 @@
 package mapping.strategy;
 
 import mapping.config.MappingDefinition;
-import model.CanonicalSubscription;
+import model.canonical.CanonicalSubscription;
 import model.Party;
 import org.springframework.stereotype.Component;
 
@@ -26,12 +26,12 @@ public class SubscriptionMappingStrategy implements MappingStrategy {
         String recipientAccount = extractField(rawJson, fields.get("recipientAccount"));
 
         return new CanonicalSubscription(
-            "SUB-" + UUID.randomUUID().toString().substring(0, 8),
-            externalRef,
-            config.getProvider(),
-            new Party("MSISDN", senderPhone),
-            new Party("BANK_ACCOUNT", recipientAccount),
-            LocalDateTime.now()
+                "SUB-" + UUID.randomUUID().toString().substring(0, 8),
+                externalRef,
+                config.getProvider(),
+                new Party("MSISDN", senderPhone),
+                new Party("BANK_ACCOUNT", recipientAccount),
+                LocalDateTime.now()
         );
     }
 }

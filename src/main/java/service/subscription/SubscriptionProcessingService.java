@@ -1,7 +1,7 @@
 package service.subscription;
 
 import adapter.OutboundAdapter;
-import model.CanonicalSubscription;
+import model.canonical.CanonicalSubscription;
 import service.IdempotencyService;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -12,12 +12,13 @@ public class SubscriptionProcessingService {
     private final IdempotencyService idempotencyService;
     private final OutboundAdapter cbsAdapter;
 
-    public SubscriptionProcessingService(IdempotencyService idempotencyService, 
+    public SubscriptionProcessingService(IdempotencyService idempotencyService,
                                          OutboundAdapter cbsAdapter) {
         this.idempotencyService = idempotencyService;
         this.cbsAdapter = cbsAdapter;
     }
 
+    // Spring route AUTOMATIQUEMENT ici si l'evenement publie est une CanonicalSubscription
     @EventListener
     public void process(CanonicalSubscription subscription) {
         idempotencyService.verifyAndLock(subscription.getExternalRef());

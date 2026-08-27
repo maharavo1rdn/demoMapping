@@ -1,7 +1,7 @@
 package service.transaction;
 
 import adapter.OutboundAdapter;
-import model.CanonicalTransaction;
+import model.canonical.CanonicalTransaction;
 import model.Money;
 import repository.BankCodeRepository;
 import service.FeeEngine;
@@ -27,7 +27,7 @@ public class TransactionProcessingService {
         this.cbsAdapter = cbsAdapter;
     }
 
-    // Spring route AUTOMATIQUEMENT ici si l'événement est un CanonicalTransaction
+    // Spring route AUTOMATIQUEMENT ici si l'evenement publie est une CanonicalTransaction
     @EventListener
     public void process(CanonicalTransaction transaction) {
         idempotencyService.verifyAndLock(transaction.getExternalRef());

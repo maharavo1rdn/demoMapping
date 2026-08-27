@@ -4,6 +4,8 @@ import mapping.config.MappingDefinition;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 
+// Contrat commun a toute strategie de transformation (transaction, souscription,
+// futur type). Chaque implementation sait construire SON type d'objet canonique.
 public interface MappingStrategy {
     boolean supports(String eventType);
     Object mapToCanonical(String rawJson, MappingDefinition config);

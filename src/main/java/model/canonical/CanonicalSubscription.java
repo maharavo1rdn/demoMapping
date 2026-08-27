@@ -1,11 +1,13 @@
-package model;
+package model.canonical;
+
+import model.Party;
 
 import java.time.LocalDateTime;
 
-import model.Party;
-import model.canonical.interface.CanonicalEvent;
-
-public class CanonicalSubscription implements CanonicalEvent{
+// Le format pivot pour une souscription (liaison d'un numero Orange Money
+// a un compte bancaire). Different d'une transaction : pas de montant,
+// mais un client + un compte associe.
+public class CanonicalSubscription implements CanonicalEvent {
     private String internalId;
     private String externalRef;
     private String provider;
@@ -28,9 +30,11 @@ public class CanonicalSubscription implements CanonicalEvent{
     public String getInternalId() { return internalId; }
     public void setInternalId(String internalId) { this.internalId = internalId; }
 
+    @Override
     public String getExternalRef() { return externalRef; }
     public void setExternalRef(String externalRef) { this.externalRef = externalRef; }
 
+    @Override
     public String getProvider() { return provider; }
     public void setProvider(String provider) { this.provider = provider; }
 

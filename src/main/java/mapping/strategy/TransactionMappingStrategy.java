@@ -1,7 +1,7 @@
 package mapping.strategy;
 
 import mapping.config.MappingDefinition;
-import model.CanonicalTransaction;
+import model.canonical.CanonicalTransaction;
 import model.Money;
 import model.Party;
 import org.springframework.stereotype.Component;
@@ -29,22 +29,22 @@ public class TransactionMappingStrategy implements MappingStrategy {
         String senderPhone = extractField(rawJson, fields.get("senderMsisdn"));
         String recipientAccount = extractField(rawJson, fields.get("recipientAccount"));
 
-        Money money = (amountStr != null && !amountStr.isBlank()) 
-            ? new Money(new BigDecimal(amountStr), currency) : null;
+        Money money = (amountStr != null && !amountStr.isBlank())
+                ? new Money(new BigDecimal(amountStr), currency) : null;
 
         Party sender = (senderPhone != null) ? new Party("MSISDN", senderPhone) : null;
         Party recipient = (recipientAccount != null) ? new Party("BANK_ACCOUNT", recipientAccount) : null;
 
         return new CanonicalTransaction(
-            "TX-" + UUID.randomUUID().toString().substring(0, 8),
-            externalRef,
-            config.getProvider(),
-            config.getEventType(),
-            money,
-            sender,
-            recipient,
-            LocalDateTime.now(),
-            rawJson
+                "TX-" + UUID.randomUUID().toString().substring(0, 8),
+                externalRef,
+                config.getProvider(),
+                config.getEventType(),
+                money,
+                sender,
+                recipient,
+                LocalDateTime.now(),
+                rawJson
         );
     }
 }

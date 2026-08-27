@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+// Regle metier : reste en code, jamais en config ni en base.
 @Service
 public class FeeEngine {
 

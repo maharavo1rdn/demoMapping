@@ -11,7 +11,7 @@ public class IdempotencyService {
 
     public void verifyAndLock(String externalRef) {
         if (processedKeys.contains(externalRef)) {
-            throw new IllegalStateException("Doublon détecté : Référence " + externalRef + " déjà traitée.");
+            throw new IllegalStateException("Doublon detecte : Reference " + externalRef + " deja traitee.");
         }
         processedKeys.add(externalRef);
     }

@@ -10,8 +10,11 @@ import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
+// Charge TOUS les fichiers YAML de mapping au demarrage. Ajouter un
+// nouveau type d'evenement Orange Money = deposer un nouveau fichier
+// dans resources/mapping/orangemoney/, cette classe le trouvera seule.
 @Component
 public class MappingConfigRegistry {
 
@@ -22,20 +25,28 @@ public class MappingConfigRegistry {
     public void loadAllYamlConfigs() {
         try {
             PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-            Resource[] resources = resolver.getResources("classpath:mappings/**/*.yml");
+            // BUG CORRIGE : le dossier reel est "resources/mapping/orangemoney/*.yml"
+            // (singulier), le pattern cherchait "mappings" (avec un s) et ne
+            // trouvait donc jamais rien.
+            Resource[] resources = resolver.getResources("classpath:mapping/**/*.yml");
 
             for (Resource resource : resources) {
                 MappingDefinition def = yamlMapper.readValue(resource.getInputStream(), MappingDefinition.class);
                 definitions.add(def);
+            }
+
+            if (definitions.isEmpty()) {
+                throw new IllegalStateException(
+                        "Aucun fichier de mapping trouve dans classpath:mapping/**/*.yml");
             }
         } catch (IOException e) {
             throw new IllegalStateException("Erreur lors du chargement des configurations YAML de mapping", e);
         }
     }
 
-    public List<MappingDefinition> getDefinitionsForProvider(String provider) {
-        return definitions.stream()
-                .filter(d -> d.getProvider().equalsIgnoreCase(provider))
-                .collect(Collectors.toList());
+    // Le projet est dedie a Orange Money : pas besoin de filtrer par
+    // opérateur, on renvoie simplement toutes les definitions connues.
+    public List<MappingDefinition> getAllDefinitions() {
+        return Collections.unmodifiableList(definitions);
     }
 }
