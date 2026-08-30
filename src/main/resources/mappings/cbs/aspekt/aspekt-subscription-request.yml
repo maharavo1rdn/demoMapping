@@ -1,0 +1,16 @@
+type: "cbs-subscription-request"
+fields:
+  customerReference: subscriptionId
+  msisdn: userId
+
+  kyc.lastName: familyName
+  kyc.firstName: givenName
+  kyc.dateOfBirth: birthdate
+  kyc.documentType: idType
+  kyc.documentNumber: identificationId
+  kyc.address.street: street1
+  kyc.address.city: city
+  kyc.address.postalCode: postCode
+
+  scans.front: frontScanUrl
+  scans.back: backScanUrl
